@@ -1,0 +1,31 @@
+# Go binaries
+*.exe
+*.test
+*.out
+
+# Build artifacts
+/bin/
+/build/
+/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+
+# Dependency caches
+vendor/
+go.sum
+
+# Protobuf-generated code (you can regenerate anytime)
+proto/*.pb.go
+proto/*_grpc.pb.go
+
+# If you use gRPC reflection or debugging logs
+debug.log
