@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "./proto";
+option go_package = "github.com/kushal88053/go_with_grpc/proto";
 
 package kushal_service;
 
@@ -19,7 +19,7 @@ message NameList {
 }
 
 message HelloRequest {
-  repeated string names = 1;
+   string names = 1;
 }
 
 message HelloResponse {

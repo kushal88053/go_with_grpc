@@ -13,7 +13,7 @@ const (
 )
 
 func main() {
-	conn, err := grpc.Dial("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("localhost"+port, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("Failed to connect to server: %v", err)
 	}
@@ -22,5 +22,14 @@ func main() {
 	client := pb.NewKushalServiceClient(conn)
 
 	// Example call (make sure this function is implemented in your client)
-	callSayHello(client)
+	//callSayHello(client)
+
+	List := &pb.NameList{
+		Names: []string{"kushal", "patel", "shubham"},
+	}
+
+	// callSayHelloServerStream(client, List)
+	// callSayHelloClientStream(client, List)
+	callHelloBidirectionalSteam(client, List)
+
 }

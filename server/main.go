@@ -13,25 +13,26 @@ const (
 )
 
 type helloServer struct {
-	// Implement the server methods here
-	pb.KushalService
+	pb.UnimplementedKushalServiceServer
 }
 
 func main() {
+	log.Println("Starting gRPC server...") // ✅ Fixed: log.Println
+
 	listener, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}
-	server := grpc.NewServer()
 
-	if err := server.Serve(listener); err != nil {
-		log.Fatalf("Error serving: %v", err)
-	}
+	grpcServer := grpc.NewServer()
 
-	pb.RegisterKushalServiceServer(server, &helloServer{})
-	log.Printf("Server is listening on port %s", listener.Addr())
+	// ✅ Must register the service before Serve
+	pb.RegisterKushalServiceServer(grpcServer, &helloServer{})
 
-	if err := server.Serve(listener); err != nil {
+	log.Printf("Server is listening on %s", port)
+
+	// ✅ Only call Serve once
+	if err := grpcServer.Serve(listener); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
 }
